@@ -27,8 +27,3 @@ const telefone = obterTelefone(usuario.id)
 console.log('usuario', usuario)
 console.log('telefone', telefone)
 
-/*
-0 Obter um usuario
-1 Obter o numero de telefone de usuario a partir de seu Id
-2 Obter o nendereço do usuario pelo Id
-*/

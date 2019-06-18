@@ -43,43 +43,66 @@ function obterUsuario(){
         }, 2000)
   }
 
-  const usuarioPromise = obterUsuario()
-  // Quando obter sucessos(manipular) usamos a funçaõ .then
-  // Quando obter erros(manipular) usamos a funçaõ .catch
-  usuarioPromise
-      .then(function(usuario){
-         return obterTelefone(usuario.id)
-            .then(function resolverTelefone(result){
-               return {
-                  usuario: {
-                     nome: usuario.nome,
-                     id: usuario.id
-                  },
-                  telefone: result
-               }
-            })
-      })
-      .then(function(resultado) {
-         const endereco = obterEnderecoAsync(resultado.usuario.id)
-         return endereco.then(function resolveEndereco(result){
-            return {
-               usuario: resultado.usuario,
-               telefone: resultado.telefone,
-               endereco: result
-            }
-         })
-      })
-      .then(function(resultado){
-         console.log(`
-               Nome: ${resultado.usuario.nome}
-               Endereco: ${resultado.endereco.rua}, ${resultado.endereco.nunero}
-               Telefone: (${resultado.telefone.ddd}) ${resultado.telefone.telefone}
-         
-         `)
-      })
-      .catch(function(error){
-         console.log('Deu erro ', error)
-      })
+  main()
+async function main(){
+   try {
+      console.time('medid-promise')
+      const usuario = await obterUsuario()
+      // const telefone = await obterTelefone(usuario.id)
+      // const endereco = await obterEnderecoAsync(usuario.id)
+      const resultado = await Promise.all([
+         obterTelefone(usuario.id),
+         obterEnderecoAsync(usuario.id)
+      ])
+      const endereco = resultado[1]
+      const telefone = resultado[0]
+      console.log(`
+         Nome: ${usuario.nome}
+         Endereco: ${endereco.rua}, ${endereco.nunero}
+         Telefone: (${telefone.ddd}) ${telefone.telefone}
+      `)
+      console.timeEnd('medid-promise')
+   } catch (error) {
+      console.log("Deu erro, favor verificar", error)
+   }
+}
+//   const usuarioPromise = obterUsuario()
+//   // Quando obter sucessos(manipular) usamos a funçaõ .then
+//   // Quando obter erros(manipular) usamos a funçaõ .catch
+//   usuarioPromise
+//       .then(function(usuario){
+//          return obterTelefone(usuario.id)
+//             .then(function resolverTelefone(result){
+//                return {
+//                   usuario: {
+//                      nome: usuario.nome,
+//                      id: usuario.id
+//                   },
+//                   telefone: result
+//                }
+//             })
+//       })
+//       .then(function(resultado) {
+//          const endereco = obterEnderecoAsync(resultado.usuario.id)
+//          return endereco.then(function resolveEndereco(result){
+//             return {
+//                usuario: resultado.usuario,
+//                telefone: resultado.telefone,
+//                endereco: result
+//             }
+//          })
+//       })
+//       .then(function(resultado){
+//          console.log(`
+//                Nome: ${resultado.usuario.nome}
+//                Endereco: ${resultado.endereco.rua}, ${resultado.endereco.nunero}
+//                Telefone: (${resultado.telefone.ddd}) ${resultado.telefone.telefone}
+
+//          `)
+//       })
+//       .catch(function(error){
+//          console.log('Deu erro ', error)
+//       })
     
 //   obterUsuario(function resolverUsuario(error, usuario) {
 //      // null || "" || 0 === false

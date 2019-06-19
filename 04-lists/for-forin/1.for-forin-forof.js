@@ -2,7 +2,7 @@ const service = require('./service')
 
 async function main() {
     try {
-        const result = service.obterPessoas('a')
+        const result = await service.obterPessoas('a')
 
         const names = [] 
         for (let i = 0; i <= result.results.length - 1; i++) {

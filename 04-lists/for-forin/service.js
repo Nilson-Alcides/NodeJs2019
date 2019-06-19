@@ -7,10 +7,13 @@ async function obterPessoas (nome){
     return response.data
 }
 
-obterPessoas('r2')
-.then(function(resultado) {
-    console.log('resultado', resultado)
-})
-.catch(function(error) {
-    console.log('Deu erro, favor verifivar', error )
-})
+// obterPessoas('r2')
+// .then(function(resultado) {
+//     console.log('resultado', resultado)
+// })
+// .catch(function(error) {
+//     console.log('Deu erro, favor verifivar', error )
+// })
+module.exports = {
+    obterPessoas
+}

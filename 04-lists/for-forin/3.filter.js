@@ -1,0 +1,6 @@
+const {obterPessoas} = require('./servic')
+
+/*
+
+
+*/

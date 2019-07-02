@@ -1,4 +1,4 @@
-const ICrud = require('./../interface/intefaceCrud') 
+const ICrud = require('../interface/intefaceCrud') 
 
 class contextStrategy extends ICrud {
     constructor(strategy){

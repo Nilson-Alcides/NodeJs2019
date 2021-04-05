@@ -1,6 +1,6 @@
 // npm install sequelize
 // npm install pg-hstore pg
-const Sequelize = require('sequelize')
+const Sequelize = require('Sequelize')
 const Driver = new Sequelize(
     'heroes',
     'nilson',
